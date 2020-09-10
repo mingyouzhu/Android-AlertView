@@ -2,6 +2,7 @@ package com.bigkoo.alertview;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -62,6 +63,9 @@ public class AlertView {
     private Animation outAnim;
     private Animation inAnim;
     private int gravity = Gravity.CENTER;
+    private int mPromotionTextColor;
+    private int mNormalTextColor;
+    private int mBackgroundColor;
 
     public AlertView(Builder builder) {
         this.contextWeak = new WeakReference<>(builder.context);
@@ -72,7 +76,8 @@ public class AlertView {
         this.destructive = builder.destructive;
         this.others = builder.others;
         this.onItemClickListener = builder.onItemClickListener;
-
+        mPromotionTextColor = contextWeak.get().getResources().getColor(R.color.textColor_alert_button_destructive);
+        mNormalTextColor = contextWeak.get().getResources().getColor(R.color.textColor_alert_button_cancel);
         initData(title, msg, cancel, destructive, others);
         initViews();
         init();
@@ -171,7 +176,7 @@ public class AlertView {
             tvAlert.setText(cancel);
             tvAlert.setClickable(true);
             tvAlert.setTypeface(Typeface.DEFAULT_BOLD);
-            tvAlert.setTextColor(context.getResources().getColor(R.color.textColor_alert_button_cancel));
+            tvAlert.setTextColor(mNormalTextColor);
             tvAlert.setBackgroundResource(R.drawable.bg_alertbutton_bottom);
             tvAlert.setOnClickListener(new OnTextClickListener(CANCELPOSITION));
             alertButtonListView.addFooterView(itemView);
@@ -240,13 +245,13 @@ public class AlertView {
                 //取消按钮的样式
                 if (data == cancel){
                     tvAlert.setTypeface(Typeface.DEFAULT_BOLD);
-                    tvAlert.setTextColor(context.getResources().getColor(R.color.textColor_alert_button_cancel));
+                    tvAlert.setTextColor(mNormalTextColor);
                     tvAlert.setOnClickListener(new OnTextClickListener(CANCELPOSITION));
                     position = position - 1;
                 }
                 //高亮按钮的样式
                 else if (mDestructive!= null && mDestructive.contains(data)){
-                    tvAlert.setTextColor(context.getResources().getColor(R.color.textColor_alert_button_destructive));
+                    tvAlert.setTextColor(mPromotionTextColor);
                 }
 
                 tvAlert.setOnClickListener(new OnTextClickListener(position));
@@ -386,6 +391,34 @@ public class AlertView {
         }
         return this;
     }
+
+    public AlertView setBackgroundColor(int color){
+        mBackgroundColor = color;
+        initData(title, msg, cancel, destructive, others);
+        initViews();
+        init();
+        initEvents();
+        return this;
+    }
+
+    public AlertView setNormalTextColor(int color){
+        mNormalTextColor = color;
+        initData(title, msg, cancel, destructive, others);
+        initViews();
+        init();
+        initEvents();
+        return this;
+    }
+
+    public AlertView setPromotionTextColor(int color){
+        mPromotionTextColor = color;
+        initData(title, msg, cancel, destructive, others);
+        initViews();
+        init();
+        initEvents();
+        return this;
+    }
+
     /**
      * Called when the user touch on black overlay in order to dismiss the dialog
      */

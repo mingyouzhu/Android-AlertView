@@ -2,6 +2,7 @@ package com.bigkoo.alertviewdemo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -47,11 +48,21 @@ public class MainActivity extends Activity implements OnItemClickListener, OnDis
     }
 
     public void alertShow1(View view) {
-        mAlertView.show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mAlertView
+                    .setNormalTextColor(getColor(android.R.color.holo_red_dark))
+                    .setPromotionTextColor(getColor(android.R.color.holo_red_dark))
+                    .show();
+        }
     }
 
     public void alertShow2(View view) {
-        new AlertView("标题", "内容", null, new String[]{"确定"}, null, this, AlertView.Style.Alert, this).show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            new AlertView("标题", "内容", null, new String[]{"确定"}, null, this, AlertView.Style.Alert, this)
+                    .setNormalTextColor(getColor(android.R.color.holo_red_dark))
+                    .setPromotionTextColor(getColor(android.R.color.holo_red_dark))
+                    .show();
+        }
     }
 
     public void alertShow3(View view) {
