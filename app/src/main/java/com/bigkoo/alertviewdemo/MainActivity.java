@@ -49,18 +49,13 @@ public class MainActivity extends Activity implements OnItemClickListener, OnDis
 
     public void alertShow1(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mAlertView
-                    .setNormalTextColor(getColor(android.R.color.holo_red_dark))
-                    .setPromotionTextColor(getColor(android.R.color.holo_red_dark))
-                    .show();
+            mAlertView.show();
         }
     }
 
     public void alertShow2(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             new AlertView("标题", "内容", null, new String[]{"确定"}, null, this, AlertView.Style.Alert, this)
-                    .setNormalTextColor(getColor(android.R.color.holo_red_dark))
-                    .setPromotionTextColor(getColor(android.R.color.holo_red_dark))
                     .show();
         }
     }

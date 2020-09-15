@@ -89,6 +89,9 @@ public class AlertView {
         if(style != null)this.style = style;
         this.onItemClickListener = onItemClickListener;
 
+        mPromotionTextColor = contextWeak.get().getResources().getColor(R.color.textColor_alert_button_destructive);
+        mNormalTextColor = contextWeak.get().getResources().getColor(R.color.textColor_alert_button_cancel);
+
         initData(title, msg, cancel, destructive, others);
         initViews();
         init();
